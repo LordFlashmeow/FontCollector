@@ -1,13 +1,11 @@
 import os
-from .font import Font
-from .font_loader import FontLoader
 from .mkvpropedit import Mkvpropedit
 from argparse import ArgumentParser
 from pathlib import Path
 from typing import List, Set, Tuple, Union
 
 
-def _parse_input_file(ass_input: List[Path]) -> List[Path]:
+def __parse_input_file(ass_input: List[Path]) -> List[Path]:
 
     if len(ass_input) == 0:
         return [Path(file) for file in os.listdir(os.getcwd()) if file.endswith(".ass")]
@@ -114,7 +112,7 @@ def parse_arguments() -> Tuple[
     args = parser.parse_args()
 
     # Parse args
-    ass_files_path = _parse_input_file(args.input)
+    ass_files_path = __parse_input_file(args.input)
 
     output_directory = args.output
 

@@ -2,7 +2,7 @@ import logging
 import shutil
 import subprocess
 from .font import Font
-from .helpers import Helpers
+from .font.helpers import Helpers
 from os import getcwd, path
 from pathlib import Path
 from typing import Sequence
@@ -32,10 +32,7 @@ class Mkvpropedit:
 
     @staticmethod
     def is_mkvpropedit_path_valid() -> bool:
-
-        mkvpropeditOutput = subprocess.run(
-            f"{Mkvpropedit.path} --version", capture_output=True, text=True
-        )
+        mkvpropeditOutput = subprocess.run(f"{Mkvpropedit.path} --version", capture_output=True, text=True)
         return mkvpropeditOutput.stdout.startswith("mkvpropedit")
 
     @staticmethod

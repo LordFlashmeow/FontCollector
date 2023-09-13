@@ -1,6 +1,6 @@
 import os
 import re
-import setuptools
+from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
@@ -49,7 +49,7 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-setuptools.setup(
+setup(
     name="FontCollector",
     url="https://github.com/moi15moi/FontCollector/",
     project_urls={
@@ -62,7 +62,7 @@ setuptools.setup(
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     version=find_version("font_collector", "_version.py"),
-    packages=["font_collector"],
+    packages=['font_collector'] + ['font_collector.' + pkg for pkg in find_packages('font_collector')],
     python_requires=">=3.8",
     install_requires=[
         "ass",
@@ -70,7 +70,14 @@ setuptools.setup(
         "fontTools>=4.38.0",
         "freetype-py",
         "FindSystemFontsFilename>=0.1.1",
+        "langcodes>=3.3.0",
     ],
+    extras_require={
+        "dev": [
+            "coverage",
+            "pytest",
+        ]
+    },
     entry_points={"console_scripts": ["fontcollector=font_collector.__main__:main"]},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
